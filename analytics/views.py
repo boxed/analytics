@@ -11,24 +11,22 @@ from analytics.models import Claps, Referrers, PageCounts, UserAgents
 def report(request):
     url = request.POST['url']
 
+    def update_count(model, **filters):
+        try:
+            model.objects.filter(
+                **filters
+            ).update(
+                count=F('count') + 1,
+            )
+        except ValueError:
+            model.objects.create(**filters, count=0)
+
     referrer = request.POST.get('referrer')
     if referrer:
-        Referrers.objects.update_or_create(
-            page_url=url,
-            referrer=referrer,
-            defaults=dict(count=F('counts') + 1),
-        )
+        update_count(Referrers, page_url=url, referrer=referrer)
 
-    PageCounts.objects.update_or_create(
-        page_url=url,
-        defaults=dict(count=F('counts')+1),
-    )
-
-    UserAgents.objects.update_or_create(
-        page_url=url,
-        user_agent=request.META['User-Agent'],
-        defaults=dict(count=F('counts') + 1),
-    )
+    update_count(PageCounts, page_url=url)
+    update_count(UserAgents, user_agent=request.META['HTTP_USER_AGENT'])
 
     return HttpResponse('ok')
 
@@ -47,7 +45,7 @@ def claps(request):
 def clap(request):
     Claps.objects.update_or_create(
         page_url=request.GET['url'],
-        defaults=dict(count=F('counts')+1),
+        defaults=dict(count=F('count')+1),
     )
 
     return HttpResponse('ok')

@@ -4,6 +4,7 @@ from django.db import models
 class Referrers(models.Model):
     page_url = models.URLField(db_index=True)
     referrer = models.URLField()
+    count = models.BigIntegerField()
 
 
 class PageCounts(models.Model):
