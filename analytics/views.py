@@ -6,20 +6,21 @@ from django.views.decorators.http import require_POST, require_GET
 from analytics.models import Claps, Referrers, PageCounts, UserAgents
 
 
+def update_count(model, **filters):
+    try:
+        model.objects.filter(
+            **filters
+        ).update(
+            count=F('count') + 1,
+        )
+    except ValueError:
+        model.objects.create(**filters, count=1)
+
+
 @require_POST
 @csrf_exempt
 def report(request):
     url = request.POST['url']
-
-    def update_count(model, **filters):
-        try:
-            model.objects.filter(
-                **filters
-            ).update(
-                count=F('count') + 1,
-            )
-        except ValueError:
-            model.objects.create(**filters, count=0)
 
     referrer = request.POST.get('referrer')
     if referrer:
@@ -43,9 +44,5 @@ def claps(request):
 @require_POST
 @csrf_exempt
 def clap(request):
-    Claps.objects.update_or_create(
-        page_url=request.GET['url'],
-        defaults=dict(count=F('count')+1),
-    )
-
+    update_count(Claps, page_url=request.GET['url'])
     return HttpResponse('ok')
