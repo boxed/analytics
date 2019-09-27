@@ -1,3 +1,4 @@
 django
 mysqlclient
 sentry-sdk==0.7.6
+gunicorn
