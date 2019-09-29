@@ -23,7 +23,7 @@ function setup_claps() {
     if (claps_count) {
         var claps_request = new XMLHttpRequest();
         var claps_data = new URLSearchParams();
-        claps_data.append('url', document.location);
+        claps_data.append('url', document.location.href);
         claps_request.open('GET', 'https://analytics.kodare.net/claps/?' + claps_data.toString(), true);
         claps_request.onload = function () {
             if (claps_request.responseText !== "0") {
@@ -32,6 +32,15 @@ function setup_claps() {
         };
         claps_request.send();
     }
+
+    var clap_dom = document.getElementById('claps');
+    clap_dom.onclick(function() {
+        var clap_request = new XMLHttpRequest();
+        var clap_data = new URLSearchParams();
+        clap_data.append('url', document.location.href);
+        clap_request.open('GET', 'https://analytics.kodare.net/clap/?' + clap_data.toString(), true);
+        clap_request.send();
+    });
 }
 
 report_page_load()
