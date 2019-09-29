@@ -34,13 +34,13 @@ function setup_claps() {
     }
 
     var clap_dom = document.getElementById('claps');
-    clap_dom.onclick(function() {
+    clap_dom.onclick = function() {
         var clap_request = new XMLHttpRequest();
         var clap_data = new URLSearchParams();
         clap_data.append('url', document.location.href);
         clap_request.open('GET', 'https://analytics.kodare.net/clap/?' + clap_data.toString(), true);
         clap_request.send();
-    });
+    }
 }
 
 report_page_load()
