@@ -36,10 +36,10 @@ function setup_claps() {
     var clap_dom = document.getElementById('claps');
     clap_dom.onclick = function() {
         var clap_request = new XMLHttpRequest();
-        var clap_data = new URLSearchParams();
+        var clap_data = new FormData();
         clap_data.append('url', document.location.href);
-        clap_request.open('GET', 'https://analytics.kodare.net/clap/?' + clap_data.toString(), true);
-        clap_request.send();
+        clap_request.open('POST', 'https://analytics.kodare.net/clap/', true);
+        clap_request.send(clap_data);
     }
 }
 
