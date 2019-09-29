@@ -18,8 +18,18 @@ def update_count(model, **filters):
 
 
 def access_control_allow_origin(f):
-    def wrapper(*args, **kwargs):
-        r = f(*args, **kwargs)
+    def wrapper(request, *args, **kwargs):
+        if request.method == 'OPTIONS':
+            r = HttpResponse('')
+            r['Access-Control-Allow-Origin'] = '*'
+            r['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+            r['Access-Control-Allow-Headers'] = 'X-PINGARUNER'
+            r['Access-Control-Max-Age'] = '1728000'
+            r['Content-Length'] = '0'
+            r['Content-Type'] = 'text/plain'
+            return r
+
+        r = f(request, *args, **kwargs)
         r['Access-Control-Allow-Origin'] = '*'
         return r
     return wrapper
