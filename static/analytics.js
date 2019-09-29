@@ -15,5 +15,5 @@ data.append('referrer', referrer)
 
 var request = new XMLHttpRequest();
 request.open('POST', 'https://analytics.kodare.net/report/', true);
-request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+//request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 request.send(data);
