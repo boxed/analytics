@@ -12,4 +12,4 @@ if (domain_part(document.referrer) !== domain_part(document.location.href)) {
 var request = new XMLHttpRequest();
 request.open('POST', 'https://analytics.kodare.net/report/', true);
 request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-request.send({referrer: referrer});
+request.send({referrer: referrer, url: document.location});
