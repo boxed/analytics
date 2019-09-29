@@ -17,25 +17,6 @@ def update_count(model, **filters):
         model.objects.create(**filters, count=1)
 
 
-def access_control_allow_origin(f):
-    def wrapper(request, *args, **kwargs):
-        if request.method == 'OPTIONS':
-            r = HttpResponse('')
-            r['Access-Control-Allow-Origin'] = '*'
-            r['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-            r['Access-Control-Allow-Headers'] = 'X-PINGARUNER'
-            r['Access-Control-Max-Age'] = '1728000'
-            r['Content-Length'] = '0'
-            r['Content-Type'] = 'text/plain'
-            return r
-
-        r = f(request, *args, **kwargs)
-        r['Access-Control-Allow-Origin'] = '*'
-        return r
-    return wrapper
-
-
-@access_control_allow_origin
 @require_POST
 @csrf_exempt
 def report(request):
@@ -51,7 +32,6 @@ def report(request):
     return HttpResponse('ok')
 
 
-@access_control_allow_origin
 @require_GET
 @csrf_exempt
 def claps(request):
@@ -61,7 +41,6 @@ def claps(request):
         return HttpResponse('0')
 
 
-@access_control_allow_origin
 @require_POST
 @csrf_exempt
 def clap(request):
