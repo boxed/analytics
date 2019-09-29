@@ -22,13 +22,13 @@ function setup_claps() {
     var claps_count = document.getElementById('claps_count');
     if (claps_count) {
         var claps_request = new XMLHttpRequest();
-        var claps_data = new FormData();
+        var claps_data = new URLSearchParams();
         claps_data.append('url', document.location);
-        claps_request.open('GET', 'https://analytics.kodare.net/claps/', true);
+        claps_request.open('GET', 'https://analytics.kodare.net/claps/?' + claps_data.toString(), true);
         claps_request.onload = function () {
             claps_count.innerText = claps_request.responseText;
         };
-        claps_request.send(claps_data);
+        claps_request.send();
     }
 }
 
