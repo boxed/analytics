@@ -33,7 +33,7 @@ function setup_claps() {
         claps_request.send();
     }
 
-    var clap_dom = document.getElementById('clap');
+    var clap_dom = document.getElementById('claps');
     clap_dom.onclick(function() {
         var clap_request = new XMLHttpRequest();
         var clap_data = new URLSearchParams();
