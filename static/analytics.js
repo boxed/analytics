@@ -15,5 +15,16 @@ data.append('referrer', referrer)
 
 var request = new XMLHttpRequest();
 request.open('POST', 'https://analytics.kodare.net/report/', true);
-//request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 request.send(data);
+
+var claps_counter = document.getElementById('claps_counter');
+if (claps_counter) {
+    var claps_request = new XMLHttpRequest();
+    var claps_data = new FormData();
+    data.append('url', document.location);
+    request.open('GET', 'https://analytics.kodare.net/claps/', true);
+    request.onload(function() {
+        claps_counter.innerText = claps_request.responseText;
+    });
+    request.send(claps_data);
+}
