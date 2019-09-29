@@ -9,7 +9,11 @@ if (domain_part(document.referrer) !== domain_part(document.location.href)) {
 }
 
 // report page load
+var data = new FormData();
+data.append('url', document.location);
+data.append('referrer', referrer)
+
 var request = new XMLHttpRequest();
 request.open('POST', 'https://analytics.kodare.net/report/', true);
 request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-request.send({referrer: referrer, url: document.location});
+request.send(data);
