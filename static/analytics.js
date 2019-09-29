@@ -23,8 +23,8 @@ if (claps_count) {
     var claps_data = new FormData();
     data.append('url', document.location);
     request.open('GET', 'https://analytics.kodare.net/claps/', true);
-    request.onload(function() {
+    request.onload = function() {
         claps_count.innerText = claps_request.responseText;
-    });
+    };
     request.send(claps_data);
 }
