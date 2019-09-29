@@ -7,13 +7,12 @@ from analytics.models import Claps, Referrers, PageCounts, UserAgents
 
 
 def update_count(model, **filters):
-    try:
-        model.objects.filter(
-            **filters
-        ).update(
-            count=F('count') + 1,
-        )
-    except ValueError:
+    updates = model.objects.filter(
+        **filters
+    ).update(
+        count=F('count') + 1,
+    )
+    if not updates:
         model.objects.create(**filters, count=1)
 
 
