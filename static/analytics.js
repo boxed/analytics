@@ -26,7 +26,7 @@ function setup_claps() {
         claps_data.append('url', document.location);
         claps_request.open('GET', 'https://analytics.kodare.net/claps/?' + claps_data.toString(), true);
         claps_request.onload = function () {
-            claps_count.innerText = claps_request.responseText + ' text';
+            claps_count.innerText = claps_request.responseText + ' claps';
         };
         claps_request.send();
     }
