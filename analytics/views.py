@@ -17,6 +17,15 @@ def update_count(model, **filters):
         model.objects.create(**filters, count=1)
 
 
+def access_control_allow_origin(f):
+    def wrapper(*args, **kwargs):
+        r = f(*args, **kwargs)
+        r['Access-Control-Allow-Origin'] = '*'
+        return r
+    return wrapper
+
+
+@access_control_allow_origin
 @require_POST
 @csrf_exempt
 def report(request):
@@ -32,6 +41,7 @@ def report(request):
     return HttpResponse('ok')
 
 
+@access_control_allow_origin
 @require_GET
 @csrf_exempt
 def claps(request):
@@ -41,6 +51,7 @@ def claps(request):
         return HttpResponse('0')
 
 
+@access_control_allow_origin
 @require_POST
 @csrf_exempt
 def clap(request):
