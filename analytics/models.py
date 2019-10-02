@@ -2,9 +2,12 @@ from django.db import models
 
 
 class Referrers(models.Model):
-    page_url = models.URLField(db_index=True, unique=True)
+    page_url = models.URLField(db_index=True)
     referrer = models.URLField()
     count = models.BigIntegerField()
+
+    class Meta:
+        unique_together = ('page_url', 'referrer')
 
 
 class PageCounts(models.Model):
