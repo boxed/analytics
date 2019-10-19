@@ -19,7 +19,7 @@ def update_count(model, **filters):
 @require_POST
 @csrf_exempt
 def report(request):
-    url = request.POST['url']
+    url = request.POST['url'].partition('?')[0]
 
     referrer = request.POST.get('referrer')
     if referrer:
