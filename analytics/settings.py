@@ -80,8 +80,11 @@ WSGI_APPLICATION = 'analytics.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'analytics',
+        'USER': os.environ['DOKKU_MYSQL_MYSQL_ENV_MYSQL_USER'],
+        'PASSWORD': os.environ['DOKKU_MYSQL_MYSQL_ENV_MYSQL_PASSWORD'],
+        'HOST': os.environ['DOKKU_MYSQL_MYSQL_PORT_3306_TCP_ADDR'],
     }
 }
 
@@ -126,4 +129,7 @@ STATIC_URL = '/static/'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-from .settings_local import *
+try:
+    from .settings_local import *
+except ImportError:
+    pass
