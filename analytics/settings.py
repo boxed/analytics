@@ -29,6 +29,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'analytics.kodare.net',
+    'analytics.kodare.com',
 ]
 
 
