@@ -18,6 +18,7 @@ from django.urls import path
 import analytics.views as views
 
 urlpatterns = [
+    path('', views.index),
     path('admin/', admin.site.urls),
     path('report/', views.report),
     path('claps/', views.claps),

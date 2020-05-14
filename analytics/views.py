@@ -45,3 +45,7 @@ def claps(request):
 def clap(request):
     update_count(Claps, page_url=request.POST['url'])
     return HttpResponse('ok')
+
+
+def index(request):
+    return HttpResponse('Pong!')
