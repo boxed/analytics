@@ -39,9 +39,14 @@ function setup_claps() {
         var clap_data = new FormData();
         clap_data.append('url', document.location.href);
         clap_request.open('POST', 'https://analytics.kodare.net/clap/', true);
+        clap_request.onload = function () {
+            if (clap_request.responseText !== "0") {
+                claps_count.innerText = claps_request.responseText + ' claps';
+            }
+        };
         clap_request.send(clap_data);
     }
 }
 
-report_page_load()
-setup_claps()
+report_page_load();
+setup_claps();

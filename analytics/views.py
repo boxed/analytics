@@ -43,8 +43,9 @@ def claps(request):
 @require_POST
 @csrf_exempt
 def clap(request):
-    update_count(Claps, page_url=request.POST['url'])
-    return HttpResponse('ok')
+    url = request.POST['url']
+    update_count(Claps, page_url=url)
+    return HttpResponse(str(Claps.objects.get(page_url=url).count))
 
 
 def index(request):
