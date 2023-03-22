@@ -1,6 +1,6 @@
 django
 mysqlclient
-sentry-sdk==0.7.6
+sentry-sdk==1.14.0
 gunicorn
 django-cors-headers
 whitenoise
